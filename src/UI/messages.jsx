@@ -33,7 +33,7 @@ const comments = [
     },
   ]
   
-  export default function Table() {
+  export default function Messages() {
     return (
       <ul role="list" className="divide-y divide-gray-100">
         {comments.map((comment) => (
