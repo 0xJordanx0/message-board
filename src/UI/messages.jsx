@@ -1,5 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import getMessages from "../hooks/getMessages";
+import moment  from "moment";
 
 import {
   FaceFrownIcon,
@@ -14,14 +15,14 @@ const moods = [
   {
     name: "Excited",
     value: "excited",
-    icon: FireIcon,
+    icon: <FireIcon />,
     iconColor: "text-white",
     bgColor: "bg-red-500",
   },
   {
     name: "Loved",
     value: "loved",
-    icon: HeartIcon,
+    icon: <HeartIcon />,
     iconColor: "text-white",
     bgColor: "bg-pink-400",
   },
@@ -35,14 +36,14 @@ const moods = [
   {
     name: "Sad",
     value: "sad",
-    icon: FaceFrownIcon,
+    icon: <FaceFrownIcon />,
     iconColor: "text-white",
     bgColor: "bg-yellow-400",
   },
   {
     name: "Thumbsy",
     value: "thumbsy",
-    icon: HandThumbUpIcon,
+    icon: <HandThumbUpIcon />,
     iconColor: "text-white",
     bgColor: "bg-blue-500",
   },
@@ -69,6 +70,7 @@ export default function Messages() {
   }
 
   if (isLoading) return "Loading...";
+  
   return (
     <ul role="list" className="divide-y divide-gray-100">
       {data.map((message) => (
@@ -84,7 +86,7 @@ export default function Messages() {
                 Anonymous
               </p>
               <p className="flex-none text-xs text-gray-600">
-                <time dateTime={message.created_at}>{message.created_at}</time>
+                <time dateTime={message.created_at}>{moment(message.created_at).fromNow()}</time>
               </p>
             </div>
             <p className="mt-1 line-clamp-2 text-sm leading-6 text-gray-600 flex justify-between">

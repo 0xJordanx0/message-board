@@ -12,6 +12,8 @@ import {
   XMarkIcon,
 } from "@heroicons/react/20/solid";
 import { useForm } from "react-hook-form";
+import createMessage from "../hooks/createMessage";
+import { useQueryClient } from "@tanstack/react-query";
 
 const moods = [
   {
@@ -64,15 +66,21 @@ function classNames(...classes) {
 
 export default function MessageBox() {
   const [selected, setSelected] = useState(moods[5]);
+  const {register, handleSubmit, reset} = useForm();
 
-  const {register, handleSubmit} = useForm();
-
+  const query = useQueryClient();
+  
   function postData(data){
-    const newData = {
+    const message = {
       ...data,
       mood: selected.value
     }
+    createMessage(message);
+    query.invalidateQueries({queryKey: ['messages']})
+    setSelected(moods[5])
+    reset();
   }
+
   return (
     <div className="flex items-start space-x-4">
       <div className="flex-shrink-0">
@@ -95,7 +103,7 @@ export default function MessageBox() {
               className="block w-full resize-none border-0 border-b border-transparent p-0 pb-2 text-gray-900 placeholder:text-gray-400 focus:border-indigo-600 focus:ring-0 sm:text-sm sm:leading-6"
               placeholder="Add your comment..."
               defaultValue={""}
-              {...register("content")}
+              {...register("message")}
             />
           </div>
           <div className="flex justify-between pt-2">
