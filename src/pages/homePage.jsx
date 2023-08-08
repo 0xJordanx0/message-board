@@ -1,4 +1,5 @@
-import Table from "../UI/table";
+import MessageBox from "../UI/messageBox";
+import Messages from "../UI/messages";
 
 export default function homePage() {
   return (
@@ -6,7 +7,8 @@ export default function homePage() {
       {/* We've used 3xl here, but feel free to try other max-widths based on your needs */}
       <h1>Messages</h1>
       <div className="mx-auto max-w-3xl">
-        <Table />
+        <MessageBox />
+        <Messages />
       </div>
     </div>
   );
